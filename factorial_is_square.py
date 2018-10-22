@@ -6,8 +6,8 @@ import collections
 
 """Testing hypothesis if there is a factorial which is a square number
 
-Detailed testing of this hypotheis:
-for natural n > 1 extist natural o so n! = o^2
+Detailed description of the testing:
+for a natural n > 1 extist a natural o so n! = o^2
 To fulfill the hypothesis the number n! must have even number of its every
 factor. The program counts factors with odd number.
 """
