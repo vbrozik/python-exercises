@@ -14,24 +14,41 @@ factor. The program counts factors with odd number.
 """
 
 # TODO:
+# get rid of global variables
+# convert to object?
+# read CLI parameters
 
 maxn = 100
 nplaces = math.floor(math.log10(maxn)) + 1
 
 def nfacfac(start=1):
-    """factors of n! starting from start"""
+    """generate factors of n! starting from start
+
+    This is a generator which returns prime factors of n!
+    starting from specified n or 1.
+    The factors are represented by the Counter class."""
     result = collections.Counter()
     if start > 2:
         result += sympy.ntheory.factorint(math.factorial(n-1))
+    # internal factors variable initialized
     for n in itertools.count(start):
         result += sympy.ntheory.factorint(n)
         yield result
 
+def counter_count_odd(counter):
+    """count number of odd numbered items
+
+    Could be used for example to cound odd numbered prime factors
+    which prevent the number to be a perfect square."""
+    oddn = 0
+    for item in counter:
+        if counter[item] % 2:
+            oddn += 1
+    return oddn
+
 def main():
     for n, facfac in enumerate(itertools.islice(nfacfac(2), maxn)):
-        oddf = 0    # odd numbered factors
-        for fac in facfac:
-            if facfac[fac] % 2: oddf += 1
+        oddf = counter_count_odd(facfac)
         if oddf < 4:
             print(f"{n: {nplaces}} {oddf}")
 
