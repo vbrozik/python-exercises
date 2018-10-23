@@ -3,6 +3,7 @@
 import sympy
 import math
 import collections
+import itertools
 
 """Testing hypothesis if there is a factorial which is a square number
 
@@ -13,19 +14,24 @@ factor. The program counts factors with odd number.
 """
 
 # TODO:
-# rewrite as a generator
+
+maxn = 100
+nplaces = math.floor(math.log10(maxn)) + 1
+
+def nfacfac(start=1):
+    """factors of n! starting from start"""
+    result = collections.Counter()
+    if start > 2:
+        result += sympy.ntheory.factorint(math.factorial(n-1))
+    for n in itertools.count(start):
+        result += sympy.ntheory.factorint(n)
+        yield result
 
 def main():
-    maxn = 1000000
-    nplaces = math.floor(math.log10(maxn)) + 1
-    nfacfac = collections.Counter()
-
-    for n in range(2, maxn):
-        nfac = sympy.ntheory.factorint(n)
-        nfacfac += nfac
+    for n, facfac in enumerate(itertools.islice(nfacfac(2), maxn)):
         oddf = 0    # odd numbered factors
-        for fac in nfacfac:
-            if nfacfac[fac] % 2: oddf += 1
+        for fac in facfac:
+            if facfac[fac] % 2: oddf += 1
         if oddf < 4:
             print(f"{n: {nplaces}} {oddf}")
 
