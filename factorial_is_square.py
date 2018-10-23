@@ -43,6 +43,10 @@ def counter_count_odd(counter):
             oddn += 1
     return oddn
 
+def nfacoddfac(start, maxn=None):
+    for facfac in itertools.islice(nfacfac(start), maxn):
+        yield counter_count_odd(facfac)
+
 def main(start=2, maxn=100):
     nplaces = math.floor(math.log10(maxn)) + 1
     for n, facfac in enumerate(itertools.islice(nfacfac(start), maxn), start=start):
