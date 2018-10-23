@@ -18,6 +18,7 @@ factor. The program counts factors with odd number.
 # convert to object?
 # read CLI parameters
 
+start = 2
 maxn = 100
 nplaces = math.floor(math.log10(maxn)) + 1
 
@@ -47,7 +48,7 @@ def counter_count_odd(counter):
     return oddn
 
 def main():
-    for n, facfac in enumerate(itertools.islice(nfacfac(2), maxn)):
+    for n, facfac in enumerate(itertools.islice(nfacfac(start), maxn), start=start):
         oddf = counter_count_odd(facfac)
         if oddf < 4:
             print(f"{n: {nplaces}} {oddf}")
